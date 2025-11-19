@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco Station Edu | Rede Escola Verde</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        header {
+            background-color: #2e7d32; /* Verde Institucional */
+            color: white;
+            padding: 60px 20px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: -30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-bottom: 4px solid #4caf50;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #4caf50;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #388e3c;
+        }
+        .features {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .feature-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+        }
+        .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        footer {
+            margin-top: 60px;
+            font-size: 0.9em;
+            color: #666;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+        .logos {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Eco Station Edu</h1>
+        <div class="subtitle">Rede Escolar de Monitoramento Ambiental Inteligente</div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>Monitoramento Climático em Tempo Real</h2>
+            <p>Este é o repositório oficial do Projeto Final desenvolvido no âmbito do programa <strong>EmbarcaTech</strong> (Residência em Sistemas Embarcados).</p>
+            <p>A Eco Station Edu é uma solução IoT de baixo custo baseada em microcontroladores (RP2040) e FreeRTOS, projetada para capacitar escolas públicas de Manaus na coleta de dados ambientais e combate às queimadas.</p>
+            
+            <a href="https://sites.google.com/view/eco-station-edu" class="btn">ACESSAR PORTAL OFICIAL</a>
+        </div>
+
+        <div class="features">
+            <div class="feature-box">
+                <span class="icon">📡</span>
+                <h3>IoT & Hardware</h3>
+                <p>Desenvolvimento de firmware em C/C++ utilizando a placa BitDogLab e sistema operacional de tempo real (RTOS).</p>
+            </div>
+            <div class="feature-box">
+                <span class="icon">☁️</span>
+                <h3>Dados Abertos</h3>
+                <p>Integração com nuvem para visualização pública de temperatura, umidade e qualidade do ar.</p>
+            </div>
+            <div class="feature-box">
+                <span class="icon">🎓</span>
+                <h3>Educação 4.0</h3>
+                <p>Ferramenta pedagógica alinhada à BNCC para ensino de ciências e pensamento computacional.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>Projeto desenvolvido por <strong>Erick Mattos</strong> (Residente).</p>
+            <p class="logos">EmbarcaTech | IFCE | IREDE | MCTI</p>
+            <p><small>Licença MIT - Open Source para fins educacionais.</small></p>
+        </footer>
+    </div>
+
+</body>
+</html>
