@@ -3,117 +3,287 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="EcoStationEdu: estação educacional para monitoramento ambiental na Amazônia. Projeto da YAKAMI TECH no NASA Space Apps 2025." />
-  <title>EcoStationEdu | YAKAMI TECH</title>
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-  
-  <!-- Font Awesome (ícones) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="EcoStationEdu: Rede Escolar de Monitoramento Ambiental com IoT e Dados Abertos. Projeto da Residência EmbarcaTech (TIC 37)." />
+  <title>EcoStationEdu | EmbarcaTech (TIC 37)</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #004d40;       /* Verde institucional (MCTI/IFCE) */
+      --accent: #00bfa5;
+      --bg: #fcfcfc;
+      --text: #37474f;
+      --footer-bg: #263238;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, #00695c 100%);
+      color: white;
+      padding: 60px 20px 100px;
+      clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+      text-align: center;
+    }
+
+    .program-tag {
+      background: rgba(255,255,255,0.15);
+      display: inline-block;
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 0.85em;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: 1.25em;
+      opacity: 0.92;
+      max-width: 700px;
+      margin: 15px auto 0;
+      font-weight: 300;
+    }
+
+    /* CARD PRINCIPAL */
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 45px;
+      margin-top: -70px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border-top: 4px solid var(--accent);
+      position: relative;
+      z-index: 10;
+      text-align: left;
+    }
+
+    .card h2 {
+      color: var(--primary);
+      margin-top: 0;
+      font-size: 1.8em;
+    }
+
+    .btn-group {
+      margin-top: 30px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 30px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      text-align: center;
+      display: inline-block;
+      transition: all 0.25s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 77, 64, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: #00332a;
+    }
+
+    .btn-secondary {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: #f0f9f8;
+    }
+
+    /* FEATURES */
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin: 70px 0;
+    }
+
+    .feature {
+      flex: 1;
+      min-width: 260px;
+      background: white;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+
+    .feature h3 {
+      margin: 15px 0 10px;
+      color: var(--primary);
+    }
+
+    /* SUPPORTERS */
+    .supporters {
+      padding: 60px 0;
+      background: #f8f9fa;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+
+    .supporters h3 {
+      text-align: center;
+      font-size: 0.85em;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #78909c;
+      margin-bottom: 40px;
+    }
+
+    .logos {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .logo-placeholder {
+      width: 120px;
+      height: 45px;
+      background: #e0e0e0;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8em;
+      color: #555;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--footer-bg);
+      color: #cfd8dc;
+      padding: 40px 0 30px;
+      font-size: 0.9em;
+    }
+
+    .footer-content {
+      text-align: center;
+    }
+
+    .legal {
+      max-width: 800px;
+      margin: 20px auto 0;
+      font-size: 0.82em;
+      line-height: 1.6;
+      opacity: 0.75;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2.2em; }
+      .subtitle { font-size: 1.1em; }
+      .card { padding: 30px; }
+      .btn { width: 100%; }
+    }
+  </style>
 </head>
 <body>
-  <!-- Cabeçalho -->
+
   <header>
     <div class="container">
-      <div class="logo" data-pt="EcoStationEdu" data-en="EcoStationEdu"></div>
-      <div class="lang-switch">
-        <button class="lang-btn active" onclick="setLang('pt')">PT</button>
-        <button class="lang-btn" onclick="setLang('en')">EN</button>
-      </div>
+      <div class="program-tag">Residência em Sistemas Embarcados (TIC 37)</div>
+      <h1>EcoStationEdu</h1>
+      <div class="subtitle">Rede Escolar de Monitoramento Ambiental com IoT e Dados Abertos para a Amazônia</div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <h1 data-pt="Educação Ambiental + Tecnologia para a Amazônia" 
-          data-en="Environmental Education + Technology for the Amazon"></h1>
-      <p data-pt="O EcoStationEdu leva estações inteligentes de monitoramento e aprendizado para comunidades ribeirinhas, conectando saberes tradicionais e inovação espacial."
-         data-en="EcoStationEdu delivers smart environmental monitoring and learning stations to riverine communities, bridging traditional knowledge and space innovation."></p>
-      <a href="#projeto" class="btn" data-pt="Conheça o projeto" data-en="Learn more"></a>
-    </div>
-  </section>
-
-  <!-- Sobre -->
-  <section id="projeto" class="section">
-    <div class="container">
-      <h2 data-pt="O que é o EcoStationEdu?" data-en="What is EcoStationEdu?"></h2>
-      <p data-pt="Uma estação educacional autossustentável que integra sensores ambientais, painéis solares e conteúdos didáticos para fortalecer a educação e a conservação na Amazônia."
-         data-en="A self-sustaining educational station that integrates environmental sensors, solar panels, and educational content to strengthen conservation and learning in the Amazon."></p>
-    </div>
-  </section>
-
-  <!-- Como Funciona -->
-  <section class="section bg-light">
-    <div class="container">
-      <h2 data-pt="Como funciona?" data-en="How it works"></h2>
-      <div class="features">
-        <div class="feature">
-          <i class="fas fa-solar-panel icon"></i>
-          <h3 data-pt="Energia Solar" data-en="Solar Power"></h3>
-          <p data-pt="Autossuficiência energética com painéis solares." data-en="Energy autonomy through solar panels."></p>
-        </div>
-        <div class="feature">
-          <i class="fas fa-microchip icon"></i>
-          <h3 data-pt="Sensores IoT" data-en="IoT Sensors"></h3>
-          <p data-pt="Monitoramento de temperatura, umidade, qualidade da água e mais." data-en="Real-time monitoring of temperature, humidity, water quality, and more."></p>
-        </div>
-        <div class="feature">
-          <i class="fas fa-graduation-cap icon"></i>
-          <h3 data-pt="Educação Comunitária" data-en="Community Education"></h3>
-          <p data-pt="Atividades práticas com estudantes e lideranças locais." data-en="Hands-on learning with students and local leaders."></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Impacto -->
-  <section class="section">
-    <div class="container">
-      <h2 data-pt="Impacto Esperado" data-en="Expected Impact"></h2>
-      <div class="impact-grid">
-        <div class="impact-card">
-          <span class="impact-number">10+</span>
-          <p data-pt="Comunidades atendidas até 2027" data-en="Communities served by 2027"></p>
-        </div>
-        <div class="impact-card">
-          <span class="impact-number">500+</span>
-          <p data-pt="Estudantes impactados anualmente" data-en="Students impacted annually"></p>
-        </div>
-        <div class="impact-card">
-          <span class="impact-number">24/7</span>
-          <p data-pt="Monitoramento contínuo do ambiente" data-en="Continuous environmental monitoring"></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contato -->
-  <section id="contato" class="section bg-dark">
-    <div class="container">
-      <h2 data-pt="Entre em contato" data-en="Get in touch"></h2>
-      <p class="contact-info">
-        <i class="fas fa-envelope"></i> yakami.tech@gmail.com<br>
-        <i class="fas fa-map-marker-alt"></i> Manaus, Amazonas – Brasil<br>
-        <i class="fas fa-globe"></i> Projeto NASA Space Apps 2025
+  <div class="container">
+    <div class="card">
+      <h2>Educação Cidadã com Tecnologia Livre</h2>
+      <p>
+        O EcoStationEdu é uma estação educacional que conecta escolas públicas da Amazônia a uma rede de monitoramento ambiental em tempo real.
+        Usando sensores de baixo custo, microcontroladores <strong>RP2040 (BitDogLab)</strong> e software livre, estudantes coletam dados sobre qualidade do ar,
+        temperatura e umidade — transformando-se em protagonistas da ciência cidadã.
       </p>
-      <a href="https://www.yakami.com.br" target="_blank" class="btn btn-light" data-pt="Visite a YAKAMI TECH" data-en="Visit YAKAMI TECH"></a>
-    </div>
-  </section>
+      <p>
+        O projeto fortalece o currículo da BNCC com atividades práticas em <strong>Pensamento Computacional</strong> e <strong>Cultura Digital</strong>,
+        enquanto fornece dados úteis para a gestão ambiental local.
+      </p>
 
-  <!-- Rodapé -->
-  <footer>
+      <div class="btn-group">
+        <a href="https://sites.google.com/view/eco-station-edu" class="btn btn-primary" target="_blank">ACESSAR DASHBOARD AO VIVO</a>
+        <a href="https://embarcatech.softex.br/capacitacao-e-residencia/" class="btn btn-secondary" target="_blank">SOBRE O PROGRAMA</a>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <strong>🎓 Educação Comunitária</strong>
+        <p>Atividades pedagógicas com estudantes e professores, alinhadas aos saberes locais da Amazônia.</p>
+      </div>
+      <div class="feature">
+        <strong>📡 Firmware em FreeRTOS</strong>
+        <p>Sistema embarcado multitarefa em C/C++ para coleta contínua e envio seguro de dados.</p>
+      </div>
+      <div class="feature">
+        <strong>📊 Dados Abertos</strong>
+        <p>Informações ambientais acessíveis para comunidades, escolas e defesa civil.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="supporters">
     <div class="container">
-      <p>&copy; 2025 YAKAMI TECH. Todos os direitos reservados.</p>
-      <p>Membros: Erick Mattos e equipe EmbarcaTech</p>
+      <h3>Realização e Apoio Institucional</h3>
+      <div class="logos">
+        <div class="logo-placeholder" title="Instituto Federal do Ceará (Executor)">IFCE</div>
+        <div class="logo-placeholder" title="Softex (Coordenadora)">Softex</div>
+        <div class="logo-placeholder" title="Programa EmbarcaTech">EmbarcaTech</div>
+        <div class="logo-placeholder" title="Ministério da Ciência, Tecnologia e Inovações">MCTI</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container footer-content">
+      <p><strong>EcoStationEdu</strong> | Projeto de Residência EmbarcaTech (TIC 37)</p>
+      <p>Desenvolvido por Erick Mattos | Manaus, Amazonas</p>
+      <p class="legal">
+        Este projeto foi desenvolvido no âmbito do Programa EmbarcaTech (Residência Tecnológica em Sistemas Embarcados - TIC 37),
+        apoiado pelo Ministério da Ciência, Tecnologia e Inovações (MCTI) com recursos da Lei nº 8.248, de 23 de outubro de 1991
+        (Lei de Informática), coordenado pela Softex e executado pelo IFCE.
+      </p>
     </div>
   </footer>
 
-  <!-- Script -->
-  <script src="script.js"></script>
 </body>
 </html>
