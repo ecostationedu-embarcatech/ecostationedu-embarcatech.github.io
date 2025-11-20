@@ -1,53 +1,73 @@
-# 🌱 Eco Station Edu
-> **Rede Escolar de Monitoramento Ambiental Inteligente (IoT + RTOS)**
+# 🌱 EcoStationEdu  
+### Rede Escolar de Monitoramento Ambiental com IoT e RTOS  
 
-![EmbarcaTech Badge](https://img.shields.io/badge/EmbarcaTech-Residência_TIC_37-2e7d32)
-![Status](https://img.shields.io/badge/Status-MVP_Funcional-success)
-![License](https://img.shields.io/badge/License-MIT-blue)
-![Language](https://img.shields.io/badge/C%2F_C%2B%2B-RP2040-00599C)
+[![EmbarcaTech](https://img.shields.io/badge/EmbarcaTech-TIC_37-004d40?logo=github)](https://embarcatech.softex.br)
+[![Licença](https://img.shields.io/badge/Licença-MIT-green)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Desenvolvimento_ativo-2E7D32)](https://ecostationedu-embarcatech.github.io/)
+[![Tecnologia](https://img.shields.io/badge/RP2040-FreeRTOS-00BFA5)]()
 
-A **Eco Station Edu** é uma solução de IoT de baixo custo desenvolvida para monitorar a qualidade do ar e condições climáticas em escolas públicas de Manaus. O projeto integra hardware embarcado, sistema operacional de tempo real (FreeRTOS) e análise de dados em nuvem para combater os efeitos das queimadas na educação.
-
-🌐 **[Acesse o Portal Oficial do Projeto](https://ecostationedu-embarcatech.github.io/)**
+> **Portal Oficial**: [https://ecostationedu-embarcatech.github.io/](https://ecostationedu-embarcatech.github.io/)
 
 ---
 
-## 🎯 Objetivos
-- **Monitoramento Hiperlocal:** Coleta de dados de temperatura, umidade e qualidade do ar em tempo real.
-- **Escalabilidade:** Arquitetura pronta para conectar as **137 escolas estaduais** de Manaus (Base de dados SEDUC/AM integrada).
-- **Educação 4.0:** Ferramenta pedagógica para ensino de programação e ciências (BNCC).
+## 💡 Missão  
+Fortalecer a **educação ambiental** nas escolas públicas da Amazônia com tecnologia cidadã.  
+O EcoStationEdu transforma estudantes em protagonistas da ciência de dados, enquanto monitora em tempo real **temperatura, umidade e qualidade do ar** — especialmente durante eventos críticos como **queimadas**.
+
+---
+
+## 🎯 Objetivos Educacionais
+
+- **Monitoramento Hiperlocal**: Coleta de dados ambientais em escolas de Manaus.
+- **Educação 4.0**: Atividades práticas alinhadas à **BNCC** (Cultura Digital, Pensamento Computacional).
+- **Escalabilidade**: Arquitetura pronta para integrar as **137 escolas estaduais** (base SEDUC/AM).
+- **Dados Abertos**: Informações acessíveis para comunidades, professores e defesa civil.
 
 ---
 
 ## 🛠️ Arquitetura Técnica
 
 ### 📡 Hardware (Nó Sensor)
-- **Placa:** BitDogLab (Baseada no Raspberry Pi Pico W / RP2040).
-- **Sensores:** - Joystick (Simulação de Qualidade do Ar - ADC Ch 0).
-  - Sensor Interno RP2040 (Temperatura - ADC Ch 4).
-- **Atuadores:** LED RGB (Status de rede) e Display OLED (Feedback local).
+- **Placa**: BitDogLab (RP2040 / Raspberry Pi Pico W)  
+- **Sensores**:  
+  - ADC Ch 0: Joystick (simula índice de qualidade do ar)  
+  - ADC Ch 4: Sensor interno de temperatura do RP2040  
+- **Atuadores**:  
+  - LED RGB (status de rede)  
+  - Display OLED (feedback local)
 
-### 💻 Firmware
-Desenvolvido em **C/C++** utilizando o **Pico SDK** e **FreeRTOS** para gerenciamento de tarefas concorrentes:
-- `vTaskSensor`: Leitura periódica dos sensores (ADC) e conversão de grandezas.
-- `vTaskNetwork`: Gerenciamento da conectividade Wi-Fi e envio de dados (Simulação de Telemetria).
-- **Recursos RTOS:** Uso de *Queues* para comunicação segura entre tarefas e *Mutex* para controle de acesso ao hardware (Serial/Display).
+### 💻 Firmware (C/C++ + FreeRTOS)
+- **vTaskSensor**: Leitura periódica de sensores via ADC.  
+- **vTaskNetwork**: Gerenciamento Wi-Fi e envio de telemetria.  
+- **RTOS Features**:  
+  - `Queues` para comunicação entre tarefas  
+  - `Mutex` para acesso seguro a hardware (Serial, Display)
 
-### ☁️ Cloud & Dados
-- **Backend:** Google Sheets (Banco de Dados) + Google Apps Script (API Simulada).
-- **Visualização:** Dashboard interativo no **Google Looker Studio**.
-- **Georreferenciamento:** Mapa dinâmico com coordenadas reais das escolas de Manaus.
-
+### ☁️ Nuvem & Visualização
+- **Backend**: Google Sheets + Google Apps Script (API simulada)  
+- **Dashboard**: Google Looker Studio (dados em tempo real)  
+- **Georreferenciamento**: Mapa dinâmico com localização das escolas de Manaus
 ---
 
-## 🚀 Como Executar o Projeto
+## 🚀 Como Executar
 
 ### Pré-requisitos
-- VS Code com extensão **Raspberry Pi Pico**.
-- SDK do RP2040 configurado.
-- Compilador C/C++ (Arm GCC).
+- VS Code + extensão Raspberry Pi Pico  
+- Pico SDK configurado  
+- Compilador ARM GCC
 
 ### Instalação
-1. Clone o repositório:
-   ```bash
-   git clone [https://github.com/ecostationedu-embarcatech/eco_station_edu.git](https://github.com/ecostationedu-embarcatech/eco_station_edu.git)
+```bash
+git clone https://github.com/ecostationedu-embarcatech/eco_station_edu.git
+cd eco_station_edu
+# Siga o guia de compilação no diretório /firmware
+
+🏛️ Enquadramento Institucional
+Este projeto foi desenvolvido no âmbito do Programa EmbarcaTech
+(Residência Tecnológica em Sistemas Embarcados – TIC 37),
+apoiado pelo Ministério da Ciência, Tecnologia e Inovações (MCTI)
+com recursos da Lei nº 8.248/91 (Lei de Informática),
+coordenado pela Softex e executado pelo IFCE.
+
+Desenvolvido por Erick Mattos
+📍 Manaus, Amazonas – Brasil
