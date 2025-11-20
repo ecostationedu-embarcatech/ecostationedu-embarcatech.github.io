@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="EcoStationEdu: Rede Escolar de Monitoramento Ambiental com IoT e Dados Abertos. Projeto da Residência EmbarcaTech (TIC 37)." />
   <title>EcoStationEdu | EmbarcaTech (TIC 37)</title>
-  <link rel="icon" href="image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
@@ -34,17 +34,6 @@
       max-width: 1100px;
       margin: 0 auto;
       padding: 0 20px;
-    }
-
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     header {
@@ -93,121 +82,54 @@
       text-align: left;
     }
 
-    .card h2 {
-      color: var(--primary);
-      margin-top: 0;
-      font-size: 1.8em;
-    }
-
-    .btn-group {
-      margin-top: 30px;
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 12px 30px;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: 600;
-      text-align: center;
-      display: inline-block;
-      transition: all 0.25s;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-      box-shadow: 0 4px 10px rgba(0, 77, 64, 0.25);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      background: #00332a;
-    }
-
-    .btn-secondary {
-      border: 2px solid var(--primary);
-      color: var(--primary);
-    }
-
-    .btn-secondary:hover {
-      background: #f0f9f8;
-    }
-
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 25px;
-      margin: 70px 0;
-    }
-
-    .feature {
-      flex: 1;
-      min-width: 260px;
-      background: white;
-      padding: 28px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      text-align: left;
-    }
-
-    .feature h3 {
-      margin: 15px 0 10px;
-      color: var(--primary);
-    }
-
-    /* MAPA */
     #map {
       height: 500px;
       width: 100%;
       border-radius: 12px;
+      margin: 20px 0;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin: 40px 0;
     }
 
-    #map-fallback {
-      display: none;
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin: 40px 0;
-      padding: 20px;
-      background: #fff;
+    #search-container {
+      margin: 20px 0;
       text-align: center;
+    }
+
+    #school-search {
+      width: 100%;
+      max-width: 500px;
+      padding: 12px 20px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Roboto', sans-serif;
     }
 
     .map-actions {
       text-align: center;
-      margin-bottom: 20px;
+      margin: 15px 0;
     }
 
-    .map-actions .btn {
-      background: var(--accent);
+    .btn {
+      padding: 10px 20px;
+      background: var(--primary);
       color: white;
       border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
     }
 
-    .map-actions .btn:hover {
-      background: #00a08a;
+    .btn:hover {
+      background: #00332a;
     }
 
-    /* SUPPORTERS */
     .supporters {
       padding: 60px 0;
       background: #f8f9fa;
       border-top: 1px solid #eee;
       border-bottom: 1px solid #eee;
-    }
-
-    .supporters h3 {
-      text-align: center;
-      font-size: 0.85em;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #78909c;
-      margin-bottom: 30px;
     }
 
     .logos {
@@ -220,26 +142,15 @@
 
     .logo-img {
       height: 45px;
-      width: auto;
       filter: grayscale(100%);
       opacity: 0.7;
-      transition: all 0.3s;
     }
 
-    .logo-img:hover {
-      filter: grayscale(0%);
-      opacity: 1;
-    }
-
-    /* FOOTER */
     footer {
       background: var(--footer-bg);
       color: #cfd8dc;
       padding: 40px 0 30px;
       font-size: 0.9em;
-    }
-
-    .footer-content {
       text-align: center;
     }
 
@@ -251,22 +162,17 @@
       opacity: 0.75;
     }
 
-    /* RESPONSIVO */
     @media (max-width: 768px) {
       h1 { font-size: 2.2em; }
       .subtitle { font-size: 1.1em; }
       .card { padding: 30px; }
-      .btn { width: 100%; }
-      .features { flex-direction: column; }
-      #map, #map-fallback {
-        height: 350px;
-      }
+      #map { height: 350px; }
     }
   </style>
 </head>
 <body>
 
-  <header class="fade-in">
+  <header>
     <div class="container">
       <div class="program-tag">Residência em Sistemas Embarcados (TIC 37)</div>
       <h1>EcoStationEdu</h1>
@@ -275,7 +181,7 @@
   </header>
 
   <div class="container">
-    <div class="card fade-in">
+    <div class="card">
       <h2>Educação Cidadã com Tecnologia Livre</h2>
       <p>
         O EcoStationEdu é uma estação educacional que conecta escolas públicas da Amazônia a uma rede de monitoramento ambiental em tempo real.
@@ -287,57 +193,32 @@
         enquanto fornece dados úteis para a gestão ambiental local.
       </p>
 
-      <div class="btn-group">
-        <a href="https://sites.google.com/view/eco-station-edu" class="btn btn-primary" target="_blank">ACESSAR DASHBOARD AO VIVO</a>
-        <a href="https://embarcatech.softex.br/capacitacao-e-residencia/" class="btn btn-secondary" target="_blank">SOBRE O PROGRAMA</a>
+      <div id="search-container">
+        <input type="text" id="school-search" placeholder="🔍 Busque uma escola por nome (ex: Dom Pedro II)">
       </div>
-    </div>
 
-    <div class="features fade-in">
-      <div class="feature">
-        <h3>🎓 Educação Comunitária</h3>
-        <p>Atividades pedagógicas com estudantes e professores, alinhadas aos saberes locais da Amazônia.</p>
-      </div>
-      <div class="feature">
-        <h3>📡 Firmware em FreeRTOS</h3>
-        <p>Sistema embarcado multitarefa em C/C++ para coleta contínua e envio seguro de dados.</p>
-      </div>
-      <div class="feature">
-        <h3>📊 Dados Abertos</h3>
-        <p>Informações ambientais acessíveis para comunidades, escolas e defesa civil.</p>
-      </div>
-    </div>
-
-    <!-- MAPA -->
-    <div class="fade-in" id="map-section">
-      <h2 style="text-align: center; margin: 40px 0 20px; color: var(--primary);">Rede Escolar EcoStationEdu — Manaus (137 Escolas)</h2>
-      
       <div class="map-actions">
-        <button id="show-all-btn" class="btn">Ver todas as escolas</button>
+        <button id="show-all-btn" class="btn">Ver todas as 137 escolas</button>
       </div>
 
       <div id="map"></div>
-      <div id="map-fallback">
-        <h3>Mapa das Escolas Estaduais de Manaus</h3>
-        <p>Carregando... Se este mapa não aparecer, você pode ver a <a href="https://github.com/ecostationedu-embarcatech/eco_station_edu/blob/main/escolas-manaus.csv" target="_blank">lista completa em CSV</a>.</p>
-      </div>
     </div>
   </div>
 
-  <div class="supporters fade-in">
+  <div class="supporters">
     <div class="container">
       <h3>Realização e Apoio Institucional</h3>
       <div class="logos">
-        <img src="logo-ifce.png" alt="IFCE" class="logo-img" title="Instituto Federal do Ceará">
-        <img src="logo-softex.png" alt="Softex" class="logo-img" title="Softex">
-        <img src="logo-embarcatech.png" alt="EmbarcaTech" class="logo-img" title="Programa EmbarcaTech">
-        <img src="logo-mcti.png" alt="MCTI" class="logo-img" title="Ministério da Ciência, Tecnologia e Inovações">
+        <img src="logo-ifce.png" alt="IFCE" class="logo-img">
+        <img src="logo-softex.png" alt="Softex" class="logo-img">
+        <img src="logo-embarcatech.png" alt="EmbarcaTech" class="logo-img">
+        <img src="logo-mcti.png" alt="MCTI" class="logo-img">
       </div>
     </div>
   </div>
 
-  <footer class="fade-in">
-    <div class="container footer-content">
+  <footer>
+    <div class="container">
       <p><strong>EcoStationEdu</strong> | Projeto de Residência EmbarcaTech (TIC 37)</p>
       <p>Desenvolvido por Erick Mattos | Manaus, Amazonas</p>
       <p class="legal">
@@ -351,7 +232,7 @@
   <!-- Leaflet -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    // DADOS REAIS DE 137 ESCOLAS ESTADUAIS DE MANAUS
+    // ✅ DADOS EMBUTIDOS — 137 ESCOLAS (sem dependência de arquivo externo)
     const schools = [
       { name: "COLÉGIO AMAZONENSE DOM PEDRO II", lat: -3.13492019989684, lng: -60.0173651 },
       { name: "ESCOLA ESTADUAL NOSSA SENHORA APARECIDA", lat: -3.129304999897, lng: -60.0299718 },
@@ -497,50 +378,51 @@
 
     function initMap() {
       map = L.map('map').setView([-3.1190, -60.0217], 11);
-
+      
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
-      // Adiciona todos os marcadores
+      // Adicionar todos os marcadores
       schools.forEach(school => {
         const marker = L.marker([school.lat, school.lng])
           .addTo(map)
           .bindPopup(`<b>${school.name}</b><br><em>Estação EcoStationEdu</em>`);
-        markers.push(marker);
+        markers.push({ marker, school });
       });
 
-      // Evento do botão
+      // Botão "Ver todas"
       document.getElementById('show-all-btn').addEventListener('click', () => {
-        if (markers.length > 0) {
-          const group = new L.FeatureGroup(markers);
+        if (schools.length > 0) {
+          const group = L.featureGroup(markers.map(m => m.marker));
           map.fitBounds(group.getBounds().pad(0.1));
-          
-          // Mostra popup com lista
-          let list = '<h4>Escolas Participantes (137):</h4><ul style="max-height:200px;overflow:auto">';
-          schools.forEach(s => list += `<li>${s.name}</li>`);
-          list += '</ul>';
-          L.popup()
-            .setLatLng([-3.1190, -60.0217])
-            .setContent(list)
-            .openOn(map);
         }
       });
 
-      // Esconde fallback
-      document.getElementById('map-fallback').style.display = 'none';
+      // Busca por nome
+      const searchInput = document.getElementById('school-search');
+      searchInput.addEventListener('input', () => {
+        const query = searchInput.value.trim().toLowerCase();
+        if (query === '') {
+          return;
+        }
+        const found = schools.find(s => s.name.toLowerCase().includes(query));
+        if (found) {
+          map.setView([found.lat, found.lng], 14);
+          const match = markers.find(m => m.school.name === found.name);
+          if (match) {
+            match.marker.openPopup();
+          }
+        }
+      });
     }
 
-    // Inicia o mapa quando carregar
-    window.addEventListener('load', () => {
-      if (typeof L !== 'undefined') {
-        initMap();
-      } else {
-        // Se Leaflet não carregar, mostra fallback
-        document.getElementById('map').style.display = 'none';
-        document.getElementById('map-fallback').style.display = 'block';
-      }
-    });
+    // Iniciar mapa após carregar a página
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMap);
+    } else {
+      initMap();
+    }
   </script>
 </body>
 </html>
