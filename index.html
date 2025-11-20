@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="EcoStationEdu: Rede Escolar de Monitoramento Ambiental com IoT e Dados Abertos. Projeto da Residência EmbarcaTech (TIC 37)." />
   <title>EcoStationEdu | EmbarcaTech (TIC 37)</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+  <link rel="icon" href="image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     :root {
-      --primary: #004d40;       /* Verde institucional (MCTI/IFCE) */
+      --primary: #004d40;
       --accent: #00bfa5;
       --bg: #fcfcfc;
       --text: #37474f;
@@ -35,7 +36,17 @@
       padding: 0 20px;
     }
 
-    /* HEADER */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     header {
       background: linear-gradient(135deg, var(--primary) 0%, #00695c 100%);
       color: white;
@@ -70,7 +81,6 @@
       font-weight: 300;
     }
 
-    /* CARD PRINCIPAL */
     .card {
       background: white;
       border-radius: 16px;
@@ -126,7 +136,6 @@
       background: #f0f9f8;
     }
 
-    /* FEATURES */
     .features {
       display: flex;
       flex-wrap: wrap;
@@ -149,6 +158,41 @@
       color: var(--primary);
     }
 
+    /* MAPA */
+    #map {
+      height: 500px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin: 40px 0;
+    }
+
+    #map-fallback {
+      display: none;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin: 40px 0;
+      padding: 20px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .map-actions {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .map-actions .btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+    }
+
+    .map-actions .btn:hover {
+      background: #00a08a;
+    }
+
     /* SUPPORTERS */
     .supporters {
       padding: 60px 0;
@@ -163,7 +207,7 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       color: #78909c;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
 
     .logos {
@@ -174,18 +218,17 @@
       align-items: center;
     }
 
-    .logo-placeholder {
-      width: 120px;
+    .logo-img {
       height: 45px;
-      background: #e0e0e0;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8em;
-      color: #555;
-      font-weight: 500;
-      text-align: center;
+      width: auto;
+      filter: grayscale(100%);
+      opacity: 0.7;
+      transition: all 0.3s;
+    }
+
+    .logo-img:hover {
+      filter: grayscale(0%);
+      opacity: 1;
     }
 
     /* FOOTER */
@@ -208,17 +251,22 @@
       opacity: 0.75;
     }
 
+    /* RESPONSIVO */
     @media (max-width: 768px) {
       h1 { font-size: 2.2em; }
       .subtitle { font-size: 1.1em; }
       .card { padding: 30px; }
       .btn { width: 100%; }
+      .features { flex-direction: column; }
+      #map, #map-fallback {
+        height: 350px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <header>
+  <header class="fade-in">
     <div class="container">
       <div class="program-tag">Residência em Sistemas Embarcados (TIC 37)</div>
       <h1>EcoStationEdu</h1>
@@ -227,7 +275,7 @@
   </header>
 
   <div class="container">
-    <div class="card">
+    <div class="card fade-in">
       <h2>Educação Cidadã com Tecnologia Livre</h2>
       <p>
         O EcoStationEdu é uma estação educacional que conecta escolas públicas da Amazônia a uma rede de monitoramento ambiental em tempo real.
@@ -245,35 +293,50 @@
       </div>
     </div>
 
-    <div class="features">
+    <div class="features fade-in">
       <div class="feature">
-        <strong>🎓 Educação Comunitária</strong>
+        <h3>🎓 Educação Comunitária</h3>
         <p>Atividades pedagógicas com estudantes e professores, alinhadas aos saberes locais da Amazônia.</p>
       </div>
       <div class="feature">
-        <strong>📡 Firmware em FreeRTOS</strong>
+        <h3>📡 Firmware em FreeRTOS</h3>
         <p>Sistema embarcado multitarefa em C/C++ para coleta contínua e envio seguro de dados.</p>
       </div>
       <div class="feature">
-        <strong>📊 Dados Abertos</strong>
+        <h3>📊 Dados Abertos</h3>
         <p>Informações ambientais acessíveis para comunidades, escolas e defesa civil.</p>
       </div>
     </div>
-  </div>
 
-  <div class="supporters">
-    <div class="container">
-      <h3>Realização e Apoio Institucional</h3>
-      <div class="logos">
-        <div class="logo-placeholder" title="Instituto Federal do Ceará (Executor)">IFCE</div>
-        <div class="logo-placeholder" title="Softex (Coordenadora)">Softex</div>
-        <div class="logo-placeholder" title="Programa EmbarcaTech">EmbarcaTech</div>
-        <div class="logo-placeholder" title="Ministério da Ciência, Tecnologia e Inovações">MCTI</div>
+    <!-- MAPA -->
+    <div class="fade-in" id="map-section">
+      <h2 style="text-align: center; margin: 40px 0 20px; color: var(--primary);">Rede Escolar EcoStationEdu — Manaus (137 Escolas)</h2>
+      
+      <div class="map-actions">
+        <button id="show-all-btn" class="btn">Ver todas as escolas</button>
+      </div>
+
+      <div id="map"></div>
+      <div id="map-fallback">
+        <h3>Mapa das Escolas Estaduais de Manaus</h3>
+        <p>Carregando... Se este mapa não aparecer, você pode ver a <a href="https://github.com/ecostationedu-embarcatech/eco_station_edu/blob/main/escolas-manaus.csv" target="_blank">lista completa em CSV</a>.</p>
       </div>
     </div>
   </div>
 
-  <footer>
+  <div class="supporters fade-in">
+    <div class="container">
+      <h3>Realização e Apoio Institucional</h3>
+      <div class="logos">
+        <img src="logo-ifce.png" alt="IFCE" class="logo-img" title="Instituto Federal do Ceará">
+        <img src="logo-softex.png" alt="Softex" class="logo-img" title="Softex">
+        <img src="logo-embarcatech.png" alt="EmbarcaTech" class="logo-img" title="Programa EmbarcaTech">
+        <img src="logo-mcti.png" alt="MCTI" class="logo-img" title="Ministério da Ciência, Tecnologia e Inovações">
+      </div>
+    </div>
+  </div>
+
+  <footer class="fade-in">
     <div class="container footer-content">
       <p><strong>EcoStationEdu</strong> | Projeto de Residência EmbarcaTech (TIC 37)</p>
       <p>Desenvolvido por Erick Mattos | Manaus, Amazonas</p>
@@ -285,5 +348,199 @@
     </div>
   </footer>
 
+  <!-- Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // DADOS REAIS DE 137 ESCOLAS ESTADUAIS DE MANAUS
+    const schools = [
+      { name: "COLÉGIO AMAZONENSE DOM PEDRO II", lat: -3.13492019989684, lng: -60.0173651 },
+      { name: "ESCOLA ESTADUAL NOSSA SENHORA APARECIDA", lat: -3.129304999897, lng: -60.0299718 },
+      { name: "ESCOLA ESTADUAL SÃO LUIZ DE GONZAGA", lat: -3.12724499989707, lng: -60.0379394 },
+      { name: "ESCOLA ESTADUAL FREI SILVIO VAGHEGGI", lat: -3.12054349989729, lng: -60.022998 },
+      { name: "ESCOLAS IDAAM UNIDADE CACHOEIRINHA", lat: -3.1265213998971, lng: -60.0032171 },
+      { name: "ESCOLA ESTADUAL SOLON DE LUCENA", lat: -3.1145487998975, lng: -60.0263079 },
+      { name: "ESCOLA ESTADUAL JOÃO BOSÃO PANTOJA EVANGELISTA", lat: -3.11861279989734, lng: -60.048599 },
+      { name: "ESCOLA IDAAM UNIDADE ATLANTIC", lat: -3.11158309989758, lng: -60.0235979 },
+      { name: "ESCOLA ESTADUAL PADRE LUÍS RUAS", lat: -2.97254333283849, lng: -60.0328127742114 },
+      { name: "ESCOLA ESTADUAL ÁUREA PINHEIRO BRAGA", lat: -3.0625929998992, lng: -59.9244495 },
+      { name: "REDE SESI DE EDUCAÇÃO AMAZONAS UNIDADE DE EDUCAÇÃO DRA EMINA BARBOSA MUSTAFÁ", lat: -3.0745995998988, lng: -59.960651 },
+      { name: "ESCOLA ESTADUAL RAIMUNDO GOMES NOGUEIRA", lat: -3.06678209989907, lng: -60.0380518 },
+      { name: "ESCOLA ESTADUAL VASÃO VASQUES", lat: -3.03029739990025, lng: -59.9244495 },
+      { name: "ESCOLA ESTADUAL PROFESSOR RUY ALENCAR", lat: -3.00469699990109, lng: -59.9777169 },
+      { name: "EETI PROFESSORA LECITA FONSECA RAMOS", lat: -3.00269769990116, lng: -60.0011297 },
+      { name: "ESCOLAS IDAAM UNIDADE CIDADE NOVA", lat: -3.02994529990028, lng: -59.9741825 },
+      { name: "FUNDAÇÃO MATIAS MACHLINE", lat: -3.13522499989679, lng: -59.9400664 },
+      { name: "CENTRO EDUC LATO SENSU II", lat: -3.12599079989714, lng: -60.019262 },
+      { name: "IFAM CAMPUS MANAUS ZONA LESTE", lat: -3.08068039989861, lng: -59.9425039 },
+      { name: "ESC PROFESSORA JOSÉPHINA DE MELLO", lat: -3.07117409989892, lng: -59.9871989 },
+      { name: "ESCOLA INTERNACIONAL DO AMAZONAS LTDA", lat: -3.02507559990043, lng: -60.0973445 },
+      { name: "IFAM CAMPUS MANAUS DISTRITO INDUSTRIAL", lat: -3.13710019989673, lng: -59.9798842 },
+      { name: "ESCOLA ESTADUAL 1 DE MAIO", lat: -3.12053859989729, lng: -60.0116746 },
+      { name: "ESCOLA ESTADUAL MARCIO NERY", lat: -3.11691349989744, lng: -60.0070818 },
+      { name: "ESCOLA ESTADUAL VICENTE TELLES", lat: -3.1145487998975, lng: -60.0263079 },
+      { name: "ESCOLA ESTADUAL SENADOR PETRONIO PORTELLA", lat: -3.0864498998984, lng: -60.0455546 },
+      { name: "ESCOLA ESTADUAL PROFESSORA ADELAIDE TAVARES DE MACEDO", lat: -3.07307219989886, lng: -60.0353079 },
+      { name: "EETI ENGENHEIRO PROFESSOR SÉRGIO ALFREDO PESOA FIGUEIREDO", lat: -3.00522229990108, lng: -59.9769945 },
+      { name: "CENTRO EDUCACIONAL NADIR SOARES", lat: -2.9831431998918, lng: -60.0062182 },
+      { name: "ESCOLA ESTADUAL ESTELITA TAPAJÓS", lat: -3.14234739989659, lng: -60.0145919 },
+      { name: "ESCOLA ESTADUAL BRIG JOÃO CAMARÃO TELLES RIBEIRO", lat: -3.13967949989667, lng: -59.9900262 },
+      { name: "ESCOLA ESTADUAL SENADOR ANTOVILA MOURÃO VIEIRA", lat: -3.13881989989667, lng: -59.9952366 },
+      { name: "EETI GILBERTO MESTRINHO DE MEDEIROS RAPOSO", lat: -3.14082489989665, lng: -60.0086263 },
+      { name: "ESCOLA ESTADUAL ANTÔNIO DE LUCENA BITTENCOURT", lat: -3.13381029989685, lng: -59.99574 },
+      { name: "IFAM CAMPUS MANAUS CENTRO", lat: -3.13470579989684, lng: -60.0170942 },
+      { name: "ESCOLA ESTADUAL DORVAL PORTO", lat: -3.13423539989685, lng: -59.9906801 },
+      { name: "COLÉGIO MILITAR DE MANAUS", lat: -3.13070589989698, lng: -60.0249787 },
+      { name: "ESCOLA ESTADUAL FARIAS BRITTO", lat: -3.12979429989698, lng: -60.0136617 },
+      { name: "COLÉGIO BRASILEIRO PEDRO SILVESTRE", lat: -3.12999229989698, lng: -60.0243206 },
+      { name: "ESCOLA ESTADUAL JOSÉ CARLOS MESTRINHO", lat: -3.12801469989704, lng: -59.9872355 },
+      { name: "ESCOLA ESTADUAL RUY ARAÚJO", lat: -3.13470579989684, lng: -60.0170942 },
+      { name: "ESCOLA ESTADUAL PROFESSOR ANTENOR SARMENTO", lat: -3.12054349989729, lng: -60.022998 },
+      { name: "ESCOLA ESTADUAL BENEDITO ALMEIDA", lat: -3.12695239989709, lng: -59.9369276 },
+      { name: "INSTITUTO DE EDUCAÇÃO DO AMAZONAS", lat: -3.12599079989714, lng: -60.019262 },
+      { name: "ESCOLA ESTADUAL MILBURGES ARAÚJO", lat: -3.12143429989727, lng: -59.996501 },
+      { name: "ESCOLA ESTADUAL ANTÔNIO BITTENCOURT", lat: -3.12124039989729, lng: -60.0367698 },
+      { name: "ESCOLA ESTADUAL LUIZINHA NASCIMENTO", lat: -3.12297419989719, lng: -60.0105907 },
+      { name: "COLÉGIO NOSSA SENHORA AUXILIADORA", lat: -3.11990109989729, lng: -60.0219719 },
+      { name: "COLÉGIO MILITAR DA POLÍCIA MILITAR DO AMAZONAS", lat: -3.11981429989732, lng: -60.0074606 },
+      { name: "ESCOLA ESTADUAL GOVERNADOR MELO POVOAS", lat: -3.11607849989746, lng: -60.0375408 },
+      { name: "ESCOLA ESTADUAL TIRADENTES", lat: -3.11686049989742, lng: -59.9964746 },
+      { name: "INSTITUTO BATISTA DO AMAZONAS", lat: -3.11347279989753, lng: -60.0138424 },
+      { name: "ESCOLA ESTADUAL NATHALIA UCHOA", lat: -3.1149936998975, lng: -59.9748273 },
+      { name: "ESCOLA ESTADUAL SAMSUNG AMAZONAS", lat: -3.02013255295356, lng: -60.0447100792406 },
+      { name: "ESCOLA ESTADUAL ANGELO RAMAZZOTTI", lat: -3.01852849990066, lng: -59.9437079 },
+      { name: "ASSOCIAÇÃO DE CIÊNCIAS EDUCAÇÃO E TECNOLOGIA DA AMAZÔNIA", lat: -3.10796349989771, lng: -60.0131198 },
+      { name: "CONNEXUS ENSINO FUNDAMENTAL E MÉDIO LTDA", lat: -3.10851359989771, lng: -60.0078336 },
+      { name: "ESCOLA ESTADUAL PROFESSORA ONDINA DE PAULA RIBEIRO", lat: -3.10694009989775, lng: -59.9847606 },
+      { name: "ESCOLA ESTADUAL PRESIDENTE CASTELO BRANCO", lat: -3.10812629989772, lng: -60.0346292 },
+      { name: "ESCOLA ESTADUAL WALDEMIRO PERES LUSTOZA", lat: -3.10720299989773, lng: -60.0530599 },
+      { name: "ESCOLA ESTADUAL CORONEL PEDRO CÂMARA", lat: -3.09840489989802, lng: -60.0631836 },
+      { name: "ESCOLA ESTADUAL PE PEDRO GISLANDY", lat: -3.099145199898, lng: -60.0602777 },
+      { name: "ESCOLA ESTADUAL BENJAMIN MAGALHÃES BRANDÃO", lat: -3.099145199898, lng: -60.0602777 },
+      { name: "ESCOLA ESTADUAL SANT ANA", lat: -3.10509249989781, lng: -60.0046295 },
+      { name: "ESCOLA ESTADUAL DEP JOSUÉ CLÁUDIO DE SOUZA", lat: -3.09055289989828, lng: -59.980907 },
+      { name: "CENTRO METROPOLITANO DE ENSINO LTDA", lat: -3.09467399989814, lng: -60.0265777 },
+      { name: "ESCOLA ESTADUAL MANUEL RODRIGUES DE SOUZA", lat: -3.09112139989827, lng: -59.94278 },
+      { name: "EETI AUREA PINHEIRO BRAGA", lat: -3.09179389989824, lng: -60.0597962 },
+      { name: "ESCOLA ESTADUAL MARIA AMÉLIA DO ESPÍRITO SANTO", lat: -3.06044579989925, lng: -60.0317908 },
+      { name: "ESCOLA ESTADUAL MARIA MADALENA SANTANA DE LIMA", lat: -3.09052889989829, lng: -59.9433682 },
+      { name: "ESCOLA ESTADUAL AGNELLO BITTENCOURT", lat: -3.09031229989828, lng: -60.0650458 },
+      { name: "ESCOLA ESTADUAL MARECHAL HERMES", lat: -3.08578959989843, lng: -60.0586513 },
+      { name: "CENTRO EDUCACIONAL HERANCA DO SENHOR", lat: -3.08068039989861, lng: -59.9425039 },
+      { name: "ESCOLA ESTADUAL MARIA TEIXEIRA GÓES", lat: -3.08174619989857, lng: -59.9450741 },
+      { name: "ESCOLA ESTADUAL SENADOR MANUEL SEVERIANO NUNES", lat: -3.08004709989861, lng: -60.0494918 },
+      { name: "ESCOLA ESTADUAL ANTÔNIO NUNEZ JIMENEZ", lat: -3.07983469989861, lng: -59.9398469 },
+      { name: "ESCOLA ESTADUAL PROF ANTÔNIO MAURITY MONTEIRO COELHO", lat: -3.08720759989837, lng: -59.9791527 },
+      { name: "ESCOLA ESTADUAL ANTÔNIO DA ENCARNAÇÃO FILHO", lat: -3.08774319989836, lng: -60.0597356 },
+      { name: "ESCOLA ESTADUAL JOSÉPHINA DE MELO", lat: -3.07350389989882, lng: -60.0382325 },
+      { name: "ESCOLA ESTADUAL JAIRO DA SILVA ROCHA", lat: -3.06634199989906, lng: -59.9364657 },
+      { name: "ESCOLA ESTADUAL DR ISAAC SVERNER", lat: -3.06727489989904, lng: -59.9518931 },
+      { name: "ESCOLA ESTADUAL RODERICK DE CASTELLO BRANCO", lat: -3.06597169989909, lng: -59.9401542 },
+      { name: "ESCOLA ESTADUAL MARIA RODRIGUES TAPAJÓS", lat: -3.06432089989915, lng: -60.0427618 },
+      { name: "ESCOLA ESTADUAL TEN CORONEL CÂNDIDO JOSÉ MARIANO", lat: -3.06514129989912, lng: -60.0088179 },
+      { name: "ESCOLA ESTADUAL PROFESSORA ALICE SALERNO GOMES DE LIMA", lat: -3.08357539989851, lng: -60.0151474 },
+      { name: "ESCOLA ESTADUAL ERNESTO PENAFORT", lat: -3.05851109989934, lng: -59.9518931 },
+      { name: "ESCOLA ESTADUAL PROFESSORA JORGE KARAM NETO", lat: -3.05538779989943, lng: -59.948211 },
+      { name: "EETI PROFESSORA CINTHIA RÉGIA GOMES DO LIVRAMENTO", lat: -3.02013255295356, lng: -59.997120859124 },
+      { name: "CENTRO EDUCACIONAL EXCELENTE", lat: -3.0534616998995, lng: -59.9571138 },
+      { name: "ESCOLA ESTADUAL BELARMINO MARREIRO", lat: -3.03007919990024, lng: -59.9755497 },
+      { name: "ESCOLA ESTADUAL ENGE ARTHUR AMORIM", lat: -3.05383269989948, lng: -60.0313667 },
+      { name: "ESCOLA ESTADUAL PROFESSORA SEBASTIANA BRAGA", lat: -3.04003489989994, lng: -59.9833157 },
+      { name: "ESCOLA ESTADUAL RAIMUNDA HOLANDA DE SOUZA", lat: -3.03802319989999, lng: -59.9424175 },
+      { name: "EETI MARCANTÔNIO VILACA II", lat: -3.04604729989975, lng: -60.0184253 },
+      { name: "ESCOLA ESTADUAL PROF JOSÉ BERNARDINO LINDOSO", lat: -3.04987089989961, lng: -59.9693751 },
+      { name: "ESCOLA ESTADUAL MARCANTÔNIO VILACA", lat: -3.04205359989987, lng: -59.9955978 },
+      { name: "ESCOLA ESTADUAL PROFESSOR JÚLIO CÉSAR DE MORAES PASÃOS", lat: -3.04451249989978, lng: -60.0133004 },
+      { name: "ESCOLA ESTADUAL D MILTON CORREA PEREIRA", lat: -3.03007919990024, lng: -59.9755497 },
+      { name: "ESCOLA ESTADUAL DESEMBARGADOR ANDRÉ VIDAL DE ARAÚJO", lat: -3.04003489989994, lng: -59.9833157 },
+      { name: "ESCOLA ESTADUAL PROFESSORA CECÍLIA FERREIRA DA SILVA", lat: -3.03274329990017, lng: -59.9231093 },
+      { name: "ESCOLA ESTADUAL ANTOGILDO PASÃOOAL VIANA", lat: -3.03076509990024, lng: -60.0160102 },
+      { name: "ESCOLA ESTADUAL DR JOSÉ MILTON BANDEIRA", lat: -3.02949759990028, lng: -59.9991201 },
+      { name: "ESCOLA ESTADUAL SENADOR JOÃO BOSÃO RAMOS DE LIMA", lat: -3.03007919990024, lng: -59.9755497 },
+      { name: "ESCOLA ESTADUAL PROFESSORA RUTH PRESTES GONCALVES", lat: -3.04205359989987, lng: -59.9955978 },
+      { name: "ESCOLA CELUS LTDA", lat: -3.02994529990028, lng: -59.9741825 },
+      { name: "ESCOLA ESTADUAL PROFESSOR CLEOMENES DO CARMO CHAVES", lat: -2.99633794289603, lng: -59.9852235540948 },
+      { name: "ESCOLA ESTADUAL PROFESSORA ELIANA DE FREITAS MORAIS", lat: -2.96808189990229, lng: -60.0107404 },
+      { name: "ESCOLA ESTADUAL INSPETORA DULCINÉIA VARELA MOURA", lat: -3.02563309990041, lng: -60.0070681 },
+      { name: "ESCOLA ESTADUAL MARIA DO CÉU VAZ DOLIVEIRA", lat: -3.02284019990049, lng: -60.0007458 },
+      { name: "ESCOLA ESTADUAL CID CABRAL DA SILVA", lat: -3.02052319990058, lng: -59.9616729 },
+      { name: "ESCOLA ESTADUAL HOMERO DE MIRANDA LEÃO", lat: -3.13231919989693, lng: -60.0189565 },
+      { name: "ESCOLA ESTADUAL SEBASTIÃO NORÕES", lat: -3.02754029990036, lng: -59.9820515 },
+      { name: "ESCOLA ESTADUAL PROFA KARLA PATRÍCIA BARROS DE AZEVEDO", lat: -3.01538439990073, lng: -60.0392263 },
+      { name: "EETI PROFESSOR GARCITYLZO DO LAGO E SILVA", lat: -3.01157039990089, lng: -60.0436291 },
+      { name: "ESCOLA ESTADUAL FREI MARIO MONACELLI", lat: -3.04285119989985, lng: -59.9530104 },
+      { name: "ESCOLA ESTADUAL PROFESSOR ROBERTO DOS SANTOS VIEIRA", lat: -3.02405499990047, lng: -59.9597546 },
+      { name: "ESCOLA ESTADUAL PROFESSOR WALDOCKE FRICKE DE LYRA", lat: -3.04604729989975, lng: -60.0184253 },
+      { name: "ESCOLA ESTADUAL PROFESSOR SAMUEL BENCHIMOL", lat: -3.00312079990116, lng: -59.9866571 },
+      { name: "EETI DRA ZILDA ARNS NEUMANN", lat: -2.9982251999013, lng: -60.0193524 },
+      { name: "ESCOLA ESTADUAL ERNESTO PINHO FILHO", lat: -3.00964859990093, lng: -59.9910275 },
+      { name: "ESCOLA ESTADUAL PROFESSOR SEBASTIÃO AUGUSTO LOUREIRO FILHO", lat: -2.99090379990154, lng: -60.019262 },
+      { name: "EETI JOÃO DOS SANTOS BRAGA", lat: -3.00614999990103, lng: -59.9816243 },
+      { name: "CENTRO EDUCACIONAL ARTHUR VIRGÍLIO FILHO", lat: -2.98522679990174, lng: -60.0123972 },
+      { name: "ESCOLA ESTADUAL PROFESSOR OCTÁVIO MOURÃO", lat: -2.98572759990169, lng: -60.0007324 },
+      { name: "ESCOLA ESTADUAL SENADOR EVANDRO DAS NEVES CARREIRA", lat: -2.96742319990233, lng: -59.9964572 },
+      { name: "ESCOLA ESTADUAL PROFESSORA DIANA PINHEIRO", lat: -3.02013255295356, lng: -59.997120859124 },
+      { name: "E E PROFESSOR FRANCISÃO DAS CHAGAS DE SOUZA ALBUQUERQUE", lat: -3.12532169989714, lng: -60.019804 },
+      { name: "ESCOLA NILTON LINS JAPIIM", lat: -3.12495619989712, lng: -59.9976882 },
+      { name: "CENTRO RURAL DE ENSINO COM MEDIAÇÃO TECNOLÓGICA DE MANAUS", lat: -3.12495619989712, lng: -59.9976882 },
+      { name: "ESCOLA ESTADUAL GILBERTO MESTRINHO", lat: -3.08720479989839, lng: -59.8924991 },
+      { name: "ESCOLA ESTADUAL IRMA GABRIELLE COGELS", lat: -3.02526389990042, lng: -59.9735725 },
+      { name: "ESCOLA ESTADUAL MARIA DA LUZ CALDERARO", lat: -3.05383729989948, lng: -60.0386787 },
+      { name: "ESCOLA ESTADUAL PROFESSOR JURACY BATISTA GOMES", lat: -3.02405499990047, lng: -59.9597546 },
+      { name: "ESCOLA ESTADUAL PROFESSORA EUNICE SERRANO TELLES DE SOUZA", lat: -3.12868329989705, lng: -60.0219719 },
+      { name: "ESCOLA ESTADUAL PROFESSORA JACIMAR DA SILVA GAMA", lat: -3.00362846057514, lng: -59.9678635496907 },
+      { name: "CENTRO DE EDUCAÇÃO INTEGRAL CHRIST MASTER", lat: -3.06957309989897, lng: -59.9559935 },
+      { name: "ESCOLA ESTADUAL PROFESSOR ROFRAN BELCHIOR DA SILVA", lat: -2.90144883930508, lng: -60.0419443253992 }
+    ];
+
+    let map;
+    let markers = [];
+
+    function initMap() {
+      map = L.map('map').setView([-3.1190, -60.0217], 11);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      // Adiciona todos os marcadores
+      schools.forEach(school => {
+        const marker = L.marker([school.lat, school.lng])
+          .addTo(map)
+          .bindPopup(`<b>${school.name}</b><br><em>Estação EcoStationEdu</em>`);
+        markers.push(marker);
+      });
+
+      // Evento do botão
+      document.getElementById('show-all-btn').addEventListener('click', () => {
+        if (markers.length > 0) {
+          const group = new L.FeatureGroup(markers);
+          map.fitBounds(group.getBounds().pad(0.1));
+          
+          // Mostra popup com lista
+          let list = '<h4>Escolas Participantes (137):</h4><ul style="max-height:200px;overflow:auto">';
+          schools.forEach(s => list += `<li>${s.name}</li>`);
+          list += '</ul>';
+          L.popup()
+            .setLatLng([-3.1190, -60.0217])
+            .setContent(list)
+            .openOn(map);
+        }
+      });
+
+      // Esconde fallback
+      document.getElementById('map-fallback').style.display = 'none';
+    }
+
+    // Inicia o mapa quando carregar
+    window.addEventListener('load', () => {
+      if (typeof L !== 'undefined') {
+        initMap();
+      } else {
+        // Se Leaflet não carregar, mostra fallback
+        document.getElementById('map').style.display = 'none';
+        document.getElementById('map-fallback').style.display = 'block';
+      }
+    });
+  </script>
 </body>
 </html>
