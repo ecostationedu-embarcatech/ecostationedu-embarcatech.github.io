@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eco Station Edu | Monitoramento Ambiental</title>
+    <title>Eco Station Edu | Projeto EmbarcaTech</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
     <style>
         :root {
-            --primary-color: #2e7d32;
-            --accent-color: #4caf50;
+            --primary-color: #004d40; /* Verde Institucional mais sério */
+            --accent-color: #00bfa5;
             --bg-color: #fcfcfc;
-            --text-color: #333;
+            --text-color: #37474f;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -21,83 +21,104 @@
             line-height: 1.6;
         }
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px;
             text-align: center;
         }
-        /* HEADER COM DEGRADÊ */
+        
+        /* --- HEADER INSTITUCIONAL --- */
         header {
-            background: linear-gradient(135deg, #1b5e20 0%, #66bb6a 100%);
+            background: linear-gradient(135deg, #004d40 0%, #00695c 100%);
             color: white;
-            padding: 80px 20px 100px; /* Espaço extra embaixo para o card */
-            border-radius: 0 0 50% 50% / 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 60px 20px 120px; /* Mais espaço para o card flutuar */
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
         }
-        h1 { margin: 0; font-size: 3em; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .subtitle { font-size: 1.2em; opacity: 0.95; margin-top: 10px; font-weight: 300; }
+        .program-tag {
+            background-color: rgba(255,255,255,0.15);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        h1 { margin: 0; font-size: 3.5em; font-weight: 700; letter-spacing: -1px; }
+        .subtitle { font-size: 1.3em; opacity: 0.9; margin-top: 10px; font-weight: 300; max-width: 700px; margin-left: auto; margin-right: auto; }
 
-        /* CARD PRINCIPAL */
+        /* --- HERO CARD --- */
         .card {
             background: white;
-            border-radius: 20px;
-            padding: 40px;
-            margin-top: -60px; /* Sobe em cima do header */
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            padding: 50px;
+            margin-top: -80px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             position: relative;
             z-index: 10;
-            border-top: 5px solid var(--accent-color);
+            border-top: 4px solid var(--accent-color);
+            text-align: left;
         }
+        .card h2 { color: var(--primary-color); margin-top: 0; font-size: 2em; }
+        
+        /* BOTÕES */
+        .btn-group { margin-top: 30px; display: flex; gap: 15px; flex-wrap: wrap; }
         .btn {
             display: inline-block;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .btn-primary {
             background-color: var(--primary-color);
             color: white;
-            padding: 18px 40px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: all 0.3s;
-            margin-top: 25px;
-            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 77, 64, 0.3);
         }
-        .btn:hover {
-            background-color: #1b5e20;
-            transform: translateY(-3px);
+        .btn-primary:hover { transform: translateY(-2px); background-color: #00332a; }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
         }
+        .btn-secondary:hover { background-color: #e0f2f1; }
 
-        /* FEATURES */
+        /* --- FEATURES --- */
         .features {
             display: flex;
-            justify-content: space-around;
-            margin-top: 60px;
+            justify-content: space-between;
+            margin-top: 80px;
             flex-wrap: wrap;
             gap: 30px;
         }
         .feature-box {
             flex: 1;
-            min-width: 250px;
-            padding: 20px;
+            min-width: 280px;
+            padding: 30px;
             background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            border-radius: 12px;
             transition: transform 0.3s;
+            text-align: left;
         }
-        .feature-box:hover { transform: translateY(-5px); }
-        .icon { font-size: 3em; margin-bottom: 10px; display: block; }
+        .feature-box:hover { transform: translateY(-5px); border-color: var(--accent-color); }
+        .icon { font-size: 2.5em; margin-bottom: 20px; display: block; color: var(--accent-color); }
 
-        /* SEÇÃO DE PARCEIROS (LOGOS) */
+        /* --- SUPPORTERS SECTION --- */
         .supporters {
-            margin-top: 80px;
-            padding: 50px 0;
-            background-color: #fff;
+            margin-top: 100px;
+            padding: 60px 0;
+            background-color: #fafafa;
             border-top: 1px solid #eee;
         }
         .supporters h3 {
+            font-size: 0.85em;
             text-transform: uppercase;
-            font-size: 0.9em;
             letter-spacing: 2px;
-            color: #888;
+            color: #78909c;
             margin-bottom: 40px;
         }
         .logos-grid {
@@ -105,62 +126,68 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            gap: 50px;
-        }
-        .logo-img {
-            height: 50px; /* Altura padrão para alinhar */
-            width: auto;
-            filter: grayscale(100%);
+            gap: 60px;
+            filter: grayscale(100%); /* Efeito P&B Profissional */
             opacity: 0.7;
-            transition: all 0.3s;
+            transition: all 0.5s;
         }
-        .logo-img:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-            transform: scale(1.05);
-        }
+        .logos-grid:hover { filter: grayscale(0%); opacity: 1; } /* Fica colorido ao passar o mouse */
+        .logo-img { height: 45px; width: auto; object-fit: contain; }
 
-        /* FOOTER */
+        /* --- LEGAL FOOTER --- */
         footer {
-            margin-top: 0;
-            padding: 40px 0;
+            padding: 50px 0;
             background-color: #263238;
             color: #cfd8dc;
-            font-size: 0.9em;
+            font-size: 0.85em;
+            border-top: 5px solid var(--accent-color);
+        }
+        .legal-text {
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.6;
+            font-size: 0.8em;
+            line-height: 1.5;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Eco Station Edu</h1>
-        <div class="subtitle">Rede Escolar de Monitoramento Ambiental Inteligente</div>
+        <div class="container">
+            <span class="program-tag">Residência em Sistemas Embarcados (TIC 37)</span>
+            <h1>Eco Station Edu</h1>
+            <div class="subtitle">Rede Escolar de Monitoramento Ambiental Inteligente baseada em IoT e Dados Abertos.</div>
+        </div>
     </header>
 
     <div class="container">
         <div class="card">
-            <h2>Tecnologia, Dados e Cidadania</h2>
-            <p>Projeto Final desenvolvido na Residência Tecnológica em Sistemas Embarcados (EmbarcaTech).</p>
-            <p>A <strong>Eco Station Edu</strong> conecta escolas públicas em uma rede de monitoramento climático, utilizando hardware aberto (RP2040) para combater as queimadas e educar para o futuro.</p>
+            <h2>Tecnologia Cidadã para a Amazônia</h2>
+            <p>Este projeto propõe uma solução de baixo custo para o monitoramento de queimadas e qualidade do ar em Manaus. Utilizando microcontroladores <strong>RP2040 (BitDogLab)</strong> e <strong>FreeRTOS</strong>, conectamos escolas públicas a uma rede de dados em tempo real.</p>
+            <p>O objetivo é duplo: fornecer dados climáticos precisos para a defesa civil e transformar estudantes em protagonistas da ciência de dados.</p>
             
-            <a href="https://sites.google.com/view/eco-station-edu" class="btn">ACESSAR DASHBOARD</a>
+            <div class="btn-group">
+                <a href="https://sites.google.com/view/eco-station-edu" class="btn btn-primary">ACESSAR DASHBOARD AO VIVO</a>
+                <a href="https://embarcatech.softex.br/capacitacao-e-residencia/" class="btn btn-secondary" target="_blank">CONHEÇA O PROGRAMA</a>
+            </div>
         </div>
 
         <div class="features">
             <div class="feature-box">
                 <span class="icon">📡</span>
-                <h3>IoT RP2040</h3>
-                <p>Firmware eficiente em C/C++ com FreeRTOS.</p>
+                <h3>Firmware RTOS</h3>
+                <p>Sistema multitarefa em C/C++ desenvolvido para a placa BitDogLab, garantindo coleta e envio de dados sem latência.</p>
             </div>
             <div class="feature-box">
-                <span class="icon">☁️</span>
-                <h3>Cloud Data</h3>
-                <p>Dados em tempo real no Google Looker Studio.</p>
+                <span class="icon">🗺️</span>
+                <h3>Georreferenciamento</h3>
+                <p>Integração com a base de dados da SEDUC/AM para mapeamento em tempo real de 137 escolas estaduais.</p>
             </div>
             <div class="feature-box">
                 <span class="icon">🎓</span>
-                <h3>Educação</h3>
-                <p>Aprendizado baseado em projetos (PBL) e BNCC.</p>
+                <h3>Alinhado à BNCC</h3>
+                <p>Desenvolve competências de Cultura Digital e Pensamento Computacional previstas no currículo escolar.</p>
             </div>
         </div>
     </div>
@@ -169,19 +196,23 @@
         <div class="container">
             <h3>Realização e Apoio Institucional</h3>
             <div class="logos-grid">
-                <img src="logo-embarcatech.png" alt="EmbarcaTech" class="logo-img">
-                <img src="logo-ifce.png" alt="IFCE" class="logo-img">
-                <img src="logo-softex.png" alt="Softex" class="logo-img">
-                <img src="logo-mcti.png" alt="MCTI" class="logo-img">
+                <img src="logo-ifce.png" alt="IFCE" class="logo-img" title="Instituto Federal do Ceará (Executor)">
+                <img src="logo-softex.png" alt="Softex" class="logo-img" title="Softex (Coordenador)">
+                <img src="logo-embarcatech.png" alt="EmbarcaTech" class="logo-img" title="Programa EmbarcaTech">
+                <img src="logo-mcti.png" alt="MCTI / Governo Federal" class="logo-img" title="Ministério da Ciência, Tecnologia e Inovação">
             </div>
         </div>
     </div>
 
     <footer>
         <div class="container">
-            <p><strong>Eco Station Edu</strong> | Projeto Open Source (Licença MIT)</p>
-            <p>Desenvolvido por Erick Mattos | Residente EmbarcaTech 2025</p>
-            <p style="font-size: 0.8em; margin-top: 20px; opacity: 0.5">Manaus - Amazonas - Brasil</p>
+            <p><strong>Eco Station Edu</strong> | Desenvolvido por Erick Mattos (Residente)</p>
+            <p>Manaus - Amazonas - Brasil</p>
+            <br>
+            <p class="legal-text">
+                Este projeto foi desenvolvido no âmbito do Programa EmbarcaTech, apoiado pelo Ministério da Ciência, Tecnologia e Inovação (MCTI) 
+                com recursos da Lei nº 8.248, de 23 de outubro de 1991 (Lei de Informática), coordenado pela Softex e executado pelo IFCE (Residência TIC 37).
+            </p>
         </div>
     </footer>
 
